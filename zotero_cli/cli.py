@@ -10,7 +10,7 @@ import pathlib
 import pypandoc
 import requests
 
-from zotero_cli.common import save_config
+from zotero_cli.common import save_config, load_config
 from zotero_cli.backend import ZoteroBackend
 
 EXTENSION_MAP = {
@@ -88,8 +88,15 @@ def cli(ctx, verbose, api_key, library_id):
 
 
 @cli.command()
-def configure():
+@click.option("--show", "-l", required=False, is_flag=True, default=False,
+              help="Print existing config")
+def configure(show):
     """ Perform initial setup. """
+    if show:
+        config = load_config()
+        for key in config:
+            print(f"{key:<25}:{config[key]}")
+        return
     config = {
         'sync_interval': 300
     }
