@@ -38,7 +38,7 @@ from io import open
 IS_PY3 = sys.version_info > (2,)
 TEMP_DIR = Path(tempfile.mkdtemp(prefix='zotcli'))
 DATA_PAT = re.compile(
-    r'<div class="zotcli-note">.*<p .*title="([A-Za-z0-9+/=\n ]+)">.*</div>',
+    r'<div class="zotcli-note">.*<p .*title="(.+)">.*</div>',
     flags=re.DOTALL | re.MULTILINE)
 CITEKEY_PAT = re.compile(r'^bibtex: (.*)$', flags=re.MULTILINE)
 DATA_TMPL = """
