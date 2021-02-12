@@ -104,6 +104,7 @@ def configure():
         config['library_id'] = click.prompt("Please enter your library ID")
     sync_method = select(
         [("local", "Local Zotero storage"),
+            ("zotfile", 'Use ZotFile storage'),
             ("zotcoud", "Use Zotero file cloud"),
             ("webdav", "Use WebDAV storage")],
         default=1, required=True,
@@ -135,6 +136,9 @@ def configure():
                 else:
                     config['storage_dir'] = storage_dir
                     break
+    elif sync_method == "zotfile":
+        storage_dir = click.prompt( "Please enter the path to your Zotero storage directory", default='')
+        config['storage_dir'] = storage_dir
     elif sync_method == "webdav":
         while True:
             if not config.get('webdav_path'):

@@ -248,10 +248,16 @@ class ZoteroBackend(object):
         return attachments
 
     def get_attachment_path(self, attachment):
+        storage_method = self.config['zotcli.sync_method']
+        if storage_method == 'zotfile':
+            storage = self.config['zotcli.storage_dir']
+            return Path(os.path.join(storage,
+                                     attachment['data']['key'],
+                                     attachment['data']['title']))
+
         if not attachment['data']['linkMode'].startswith("imported"):
             raise ValueError(
                 "Attachment is not stored on server, cannot download!")
-        storage_method = self.config['zotcli.sync_method']
         if storage_method == 'local':
             return Path(attachment['data']['path'])
         out_path = TEMP_DIR/attachment['data']['filename']
