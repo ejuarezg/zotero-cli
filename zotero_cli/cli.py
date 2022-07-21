@@ -81,7 +81,7 @@ def cli(ctx, verbose, api_key, library_id):
     if ctx.invoked_subcommand != 'configure':
         try:
             ctx.obj = ZoteroBackend(
-                api_key, library_id, 'user',
+                api_key, library_id, 'group',
                 autosync=(ctx.invoked_subcommand != 'sync'))
         except ValueError as e:
             ctx.fail(e.args[0])
