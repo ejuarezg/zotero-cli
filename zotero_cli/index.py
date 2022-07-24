@@ -127,6 +127,6 @@ class SearchIndex(object):
         :returns:       Generator that yields matching items.
         """
         with self._db as cursor:
-            query = "'*{}*'".format(query)
+            query = "'{}*'".format(query)
             for itm in cursor.execute(SEARCH_QUERY, (query, limit or -1)):
                 yield Item(*itm)
